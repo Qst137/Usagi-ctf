@@ -1,0 +1,31 @@
+:root {
+  --font-size-large: var(--el-font-size-large);
+  --font-size-medium: var(--el-font-size-medium);
+  /* --card-color: rgba(5, 76, 164, 0.2); */
+  /* --card-color: rgba(21, 3, 81, 0.2); */
+  --card-border: 2px solid #8C94FFaa;
+  --card-border-dim: 2px solid #8C94FF33;
+  --card-border-hover: 2px solid #b7bbf3;
+  --card-border-error: 2px solid #ff2d2daa;
+  --card-border-error-hover: 2px solid #f65353aa;
+  --card-border-transparent: 2px solid #8C94FF00;
+  --text-color: #f0f0f0;
+  --text-color-dim: #f0f0f0aa;
+  --text-color-primary: #8f6cef;
+  --text-color-primary-light: #c6b4f8;
+  --color-primary: #3d09d2;
+  --color-primary-light: #5d2aec;
+  --color-primary-dark: #260580;
+  --color-error: #c62020;
+  --color-error-light: #ef2727;
+}
+
+:root {
+  font-family: var(--el-font-family);
+  height: 100%;
+  /* background-image: linear-gradient(135deg, #022148, #000e1c); */
+}
+
+body {
+  margin: 0;
+}
