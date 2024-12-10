@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.linjhs.usagictfplatformbackend.mapper.ProblemListMapper">
+    <resultMap id="problem" type="top.linjhs.usagictfplatformbackend.pojo.Problem">
+        <id column="id" property="problemId"/>
+        <result column="problem_name" property="problemName"/>
+        <result column="problem_type" property="problemType"/>
+        <result column="problem_intro" property="problemIntro"/>
+        <result column="problem_envi" property="problemEnvi"/>
+        <result column="problem_atta" property="problemAtta"/>
+        <result column="ori_pts" property="oriPts"/>
+        <result column="solved" property="solved"/>
+        <result column="flag" property="flag"/>
+        <result column="is_open" property="isOpen"/>
+    </resultMap>
+    <select id="getAll" parameterType="top.linjhs.usagictfplatformbackend.pojo.Game" resultMap="problem" >
+        SELECT * FROM usagi_games_${id}
+    </select>
+</mapper>

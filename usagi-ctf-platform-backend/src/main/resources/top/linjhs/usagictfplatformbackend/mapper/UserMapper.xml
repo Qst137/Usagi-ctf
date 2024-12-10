@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.linjhs.usagictfplatformbackend.mapper.UserMapper">
+    <insert id="register" parameterType="top.linjhs.usagictfplatformbackend.pojo.User">
+        INSERT INTO usagi_users
+        (username, password, name, id_card
+        <if test="email != null and email != ''">, email</if>
+        <if test="phoneNumber != null and phoneNumber != ''">, phone_number</if>
+        )
+        VALUES (#{username}, #{password}, #{name}, #{idCard}
+        <if test="email != null and email != ''">, #{email}</if>
+        <if test="phoneNumber != null and phoneNumber != ''">, #{phoneNumber}</if>
+        )
+    </insert>
+    <update id="updateUser" parameterType="top.linjhs.usagictfplatformbackend.pojo.User">
+        UPDATE usagi_users
+        <set>
+            <!--这种情况需要更新用户名（更新：不允许修改用户名）-->
+            <!--<if test="id != null and username != null">username = #{username},</if>-->
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="userIntro != null and userIntro != ''">user_intro = #{userIntro},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+            <if test="teams != null">teams = #{teams},</if>
+            <if test="isCaptain != null">is_captain = #{isCaptain},</if>
+        </set>
+        <!--<where>
+            <if test="id != null">id = #{id}</if>
+            <if test="id == null">username = #{username}</if>
+        </where>-->
+        WHERE username = #{username}
+    </update>
+</mapper>

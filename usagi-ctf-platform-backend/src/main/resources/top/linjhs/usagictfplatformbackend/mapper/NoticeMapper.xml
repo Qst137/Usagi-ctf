@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.linjhs.usagictfplatformbackend.mapper.NoticeMapper">
+    <insert id = "addNotice" parameterType="top.linjhs.usagictfplatformbackend.pojo.Notice">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO usagi_games_notice_${gameId}
+        (
+        type,
+        content,
+        time
+        )
+        VALUES
+        (
+        #{type},
+        #{content},
+        #{time}
+        )
+    </insert>
+    <resultMap id="someNotices" type="top.linjhs.usagictfplatformbackend.pojo.Notice">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="type" property="type"/>
+        <result column="time" property="time"/>
+    </resultMap>
+    <select id="selectNoticeByGame"
+            parameterType="top.linjhs.usagictfplatformbackend.pojo.Notice" resultMap="someNotices">
+        SELECT * FROM usagi_games_notice_${gameId}
+    </select>
+</mapper>

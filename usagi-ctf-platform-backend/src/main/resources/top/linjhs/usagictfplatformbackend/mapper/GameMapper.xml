@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.linjhs.usagictfplatformbackend.mapper.GameMapper">
+    <update id="updateGame" parameterType="top.linjhs.usagictfplatformbackend.pojo.Game">
+        UPDATE usagi_games
+        <set>
+            <if test="gameName!=null">
+                game_name=#{gameName},
+            </if>
+            <if test="gameIntro!=null">
+                game_intro=#{gameIntro},
+            </if>
+            <if test="timeStart!=null">
+                time_start=#{timeStart},
+            </if>
+            <if test="timeEnd!=null">
+                time_end=#{timeEnd},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    <resultMap id="allGames" type="top.linjhs.usagictfplatformbackend.pojo.Game">
+        <id column="id" property="id"/>
+        <result column="game_name" property="gameName"/>
+        <result column="game_intro" property="gameIntro"/>
+        <result column="time_start" property="timeStart"/>
+        <result column="time_end" property="timeEnd"/>
+        <result column="is_open" property="isOpen"/>
+    </resultMap>
+    <select id="getAllGames" resultMap="allGames">
+        SELECT * FROM usagi_games
+    </select>
+    <select id="getAllOpenGames" resultMap="allGames">
+        SELECT * FROM usagi_games WHERE is_open=1
+    </select>
+    <insert id="addGame" parameterType="top.linjhs.usagictfplatformbackend.pojo.Game">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO
+        usagi_games
+        (
+        game_name,
+        game_intro,
+        time_start,
+        time_end
+        )
+        VALUES
+        (
+        #{gameName},
+        #{gameIntro},
+        #{timeStart},
+        #{timeEnd}
+        )
+    </insert>
+    <update id="createGameTable" parameterType="top.linjhs.usagictfplatformbackend.pojo.Game">
+        CREATE TABLE usagi_games_#{id} (
+        id INT UNSIGNED AUTO_INCREMENT COMMENT '题目id',
+        problem_name VARCHAR(20) NOT NULL COMMENT '题目名称',
+        problem_type VARCHAR(10) NOT NULL COMMENT '题目类型',
+        problem_intro TEXT NULL COMMENT '题目介绍',
+        problem_envi VARCHAR(128) NULL COMMENT '题目环境',
+        problem_atta VARCHAR(128) NULL COMMENT '题目附件',
+        ori_pts INT UNSIGNED NOT NULL COMMENT '初始分值',
+        solved TEXT NULL COMMENT '解出列表',
+        flag VARCHAR(100) NOT NULL COMMENT '答案',
+        is_open BOOL DEFAULT FALSE NOT NULL COMMENT '是否开放',
+        CONSTRAINT usagi_games_#{id}_pk PRIMARY KEY (id)
+        ) COMMENT '比赛名称';
+    </update>
+    <update id="createNoticeTable" parameterType="top.linjhs.usagictfplatformbackend.pojo.Game">
+        CREATE TABLE usagi_games_notice_#{id}
+        (
+        id INT UNSIGNED AUTO_INCREMENT COMMENT '公告id',
+        type VARCHAR(10) NOT NULL COMMENT '公告类型',
+        content TEXT NOT NULL COMMENT '公告内容',
+        time DATETIME NOT NULL COMMENT '公告发布时间',
+        CONSTRAINT usagi_games_notice_1_pk PRIMARY KEY (id)
+        )
+    </update>
+
+</mapper>

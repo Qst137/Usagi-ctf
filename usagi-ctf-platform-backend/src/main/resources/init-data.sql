@@ -1,0 +1,2 @@
+INSERT IGNORE INTO usagi.usagi_users (id, username, password, user_intro, email, phone_number, name, id_card, teams, is_captain)
+VALUES (1, 'admin', 'e44538f000179110519ecc0073870828', null, null, null, '系统管理员', '100000000000000000', '', 1);
